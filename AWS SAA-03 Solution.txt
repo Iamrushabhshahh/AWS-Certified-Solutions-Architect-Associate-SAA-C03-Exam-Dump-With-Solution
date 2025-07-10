@@ -474,7 +474,7 @@ Creating an AWS Lambda function to apply the patch to all EC2 instances would no
 51.A company is developing an application that provides order shipping statistics for retrieval by a REST API. The company wants to extract the shipping statistics, organize the data into an easy-to-read HTML format, and send the report to several email addresses at the same time every morning.
 Which combination of steps should a solutions architect take to meet these requirements? (Choose two.) 
  D. Create an Amazon EventBridge (Amazon CloudWatch Events) scheduled event that invokes an AWS Lambda function to query the application's API for the data.
-E. Store the application data in Amazon S3. Create an Amazon Simple Notification Service (Amazon SNS) topic as an S3 event destination to send the report by email. 
+B. Use Amazon Simple Email Service (Amazon SES) to format the data and to send the report by email.
 
 52.A company wants to migrate its on-premises application to AWS. The application produces output files that vary in size from tens of gigabytes to hundreds of terabytes. The application data must be stored in a standard file system structure. The company wants a solution that scales automatically. is highly available, and requires minimum operational overhead.
 Which solution will meet these requirements?
@@ -494,7 +494,9 @@ C. Create a security group that allows inbound traffic from the security group t
 
 56.A company has registered its domain name with Amazon Route 53. The company uses Amazon API Gateway in the ca-central-1 Region as a public interface for its backend microservice APIs. Third-party services consume the APIs securely. The company wants to design its API Gateway URL with the company's domain name and corresponding certificate so that the third-party services can use HTTPS.
 Which solution will meet these requirements? 
-D. Create a Regional API Gateway endpoint. Associate the API Gateway endpoint with the company's domain name. Import the public certificate associated with the company's domain name into AWS Certificate Manager (ACM) in the us-east-1 Region. Attach the certificate to the API Gateway APIs. Create Route 53 DNS records with the company's domain name. Point an A record to the company's domain name.
+C. Create a Regional API Gateway endpoint. Associate the API Gateway endpoint with the company's domain name. Import the public
+certificate associated with the company's domain name into AWS Certificate Manager (ACM) in the same Region. Attach the certificate to the
+API Gateway endpoint. Configure Route 53 to route traffic to the API Gateway endpoint.
 
 57.A company is running a popular social media website. The website gives users the ability to upload images to share with other users. The company wants to make sure that the images do not contain inappropriate content. The company needs a solution that minimizes development effort.
 What should a solutions architect do to meet these requirements? 
@@ -602,7 +604,6 @@ C. Create an Amazon SQS queue to hold the jobs that need to be processed. Create
 
 82.A company hosts its web applications in the AWS Cloud. The company configures Elastic Load Balancers to use certificates that are imported into AWS Certificate Manager (ACM). The company's security team must be notified 30 days before the expiration of each certificate.
 What should a solutions architect recommend to meet this requirement? 
-B. Create an AWS Config rule that checks for certificates that will expire within 30 days. Configure Amazon EventBridge (Amazon CloudWatch Events) to invoke a custom alert by way of Amazon Simple Notification Service (Amazon SNS) when AWS Config reports a noncompliant resource.
 D. Create an Amazon EventBridge (Amazon CloudWatch Events) rule to detect any certificates that will expire within 30 days. Configure the rule to invoke an AWS Lambda function. Configure the Lambda function to send a custom alert by way of Amazon Simple Notification Service (Amazon SNS). 
 
 83.A company's dynamic website is hosted using on-premises servers in the United States. The company is launching its product in Europe, and it wants to optimize site loading times for new European users. The site's backend must remain in the United States. The product is being launched in a few days, and an immediate solution is needed.
@@ -630,7 +631,6 @@ D. Store the customer data in an Amazon Simple Queue Service (Amazon SQS) FIFO q
 88.A survey company has gathered data for several years from areas in the United States. The company hosts the data in an Amazon S3 bucket that is 3 TB in size and growing. The company has started to share the data with a European marketing firm that has S3 buckets. The company wants to ensure that its data transfer costs remain as low as possible.
 Which solution will meet these requirements? 
  A. Configure the Requester Pays feature on the company's S3 bucket.
-B. Configure S3 Cross-Region Replication from the company's S3 bucket to one of the marketing firm's S3 buckets. 
 
 89.A company uses Amazon S3 to store its confidential audit documents. The S3 bucket uses bucket policies to restrict access to audit team IAM user credentials according to the principle of least privilege. Company managers are worried about accidental deletion of documents in the S3 bucket and want a more secure solution.
 What should a solutions architect do to secure the audit documents? 
@@ -674,7 +674,8 @@ D. Create an Amazon FSx for Windows File Server file system on AWS and set the A
 IMP>>>>>>98.An image-processing company has a web application that users use to upload images. The application uploads the images into an Amazon S3 bucket. The company has set up S3 event notifications to publish the object creation events to an Amazon Simple Queue Service (Amazon SQS) standard queue. The SQS queue serves as the event source for an AWS Lambda function that processes the images and sends the results to users through email.
 Users report that they are receiving multiple email messages for every uploaded image. A solutions architect determines that SQS messages are invoking the Lambda function more than once, resulting in multiple email messages.
 What should the solutions architect do to resolve this issue with the LEAST operational overhead?
-A. Set up long polling in the SQS queue by increasing the ReceiveMessage wait time to 30 seconds. 
+C. Increase the visibility timeout in the SQS queue to a value that is greater than the total of the function timeout and the batch window
+timeout.
 
 99.A company is implementing a shared storage solution for a gaming application that is hosted in an on-premises data center. The company needs the ability to use Lustre clients to access data. The solution must be fully managed.
 Which solution meets these requirements? 
@@ -682,7 +683,8 @@ D. Create an Amazon FSx for Lustre file system. Attach the file system to the or
 
 100.A company's containerized application runs on an Amazon EC2 instance. The application needs to download security certificates before it can communicate with other business applications. The company wants a highly secure solution to encrypt and decrypt the certificates in near real time. The solution also needs to store data in highly available storage after the data is encrypted.
 Which solution will meet these requirements with the LEAST operational overhead? 
-D. Create an AWS Key Management Service (AWS KMS) customer managed key. Allow the EC2 role to use the KMS key for encryption operations. Store the encrypted data on Amazon Elastic Block Store (Amazon EBS) volumes. 
+C. Create an AWS Key Management Service (AWS KMS) customer managed key. Allow the EC2 role to use the KMS key for encryption
+operations. Store the encrypted data on Amazon S3.
 
 101.A solutions architect is designing a VPC with public and private subnets. The VPC and subnets use IPv4 CIDR blocks. There is one public subnet and one private subnet in each of three Availability Zones (AZs) for high availability. An internet gateway is used to provide internet access for the public subnets. The private subnets require access to the internet to allow Amazon EC2 instances to download software updates.
 What should the solutions architect do to enable Internet access for the private subnets?
@@ -712,11 +714,12 @@ D. Server-side encryption with AWS KMS keys (SSE-KMS) with automatic rotation
 
 107.A bicycle sharing company is developing a multi-tier architecture to track the location of its bicycles during peak operating hours. The company wants to use these data points in its existing analytics platform. A solutions architect must determine the most viable multi-tier option to support this architecture. The data points must be accessible from the REST API.
 Which action meets these requirements for storing and retrieving location data? 
-B. Use Amazon API Gateway with AWS Lambda.
+D. Use Amazon API Gateway with Amazon Kinesis Data Analytics.
 
 108.A company has an automobile sales website that stores its listings in a database on Amazon RDS. When an automobile is sold, the listing needs to be removed from the website and the data must be sent to multiple target systems.
 Which design should a solutions architect recommend?
-C. Subscribe to an RDS event notification and send an Amazon Simple Queue Service (Amazon SQS) queue fanned out to multiple Amazon Simple Notification Service (Amazon SNS) topics. Use AWS Lambda functions to update the targets.
+A. Create an AWS Lambda function triggered when the database on Amazon RDS is updated to send the information to an Amazon Simple
+Queue Service (Amazon SQS) queue for the targets to consume.
 
 109.A company needs to store data in Amazon S3 and must prevent the data from being changed. The company wants new objects that are uploaded to Amazon S3 to remain unchangeable for a nonspecific amount of time until the company decides to modify the objects. Only specific users in the company's AWS account can have the ability 10 delete the objects.
 What should a solutions architect do to meet these requirements? 
@@ -744,7 +747,7 @@ C. Order an AWS Snowball Edge Storage Optimized device. Copy the data to the dev
 114.A company has created an image analysis application in which users can upload photos and add photo frames to their images. The users upload images and metadata to indicate which photo frames they want to add to their images. The application uses a single Amazon EC2 instance and Amazon DynamoDB to store the metadata.
 The application is becoming more popular, and the number of users is increasing. The company expects the number of concurrent users to vary significantly depending on the time of day and day of week. The company must ensure that the application can scale to meet the needs of the growing user base.
 Which solution meats these requirements?
-A. Use AWS Lambda to process the photos. Store the photos and metadata in DynamoDB. 
+C. Use AWS Lambda to process the photos. Store the photos in Amazon S3. Retain DynamoDB to store the metadata.
 
 115.A medical records company is hosting an application on Amazon EC2 instances. The application processes customer data files that are stored on Amazon S3. The EC2 instances are hosted in public subnets. The EC2 instances access Amazon S3 over the internet, but they do not require any other network access.
 A new requirement mandates that the network traffic for file transfers take a private route and not be sent over the internet.
@@ -792,9 +795,6 @@ A. Implement EC2 Spot Instances.
 IMP>>>>>>>125.A company runs its two-tier ecommerce website on AWS. The web tier consists of a load balancer that sends traffic to Amazon EC2 instances. The database tier uses an Amazon RDS DB instance. The EC2 instances and the RDS DB instance should not be exposed to the public internet. The EC2 instances require internet access to complete payment processing of orders through a third-party web service. The application must be highly available.
 Which combination of configuration options will meet these requirements? (Choose two.) 
  A. Use an Auto Scaling group to launch the EC2 instances in private subnets. Deploy an RDS Multi-AZ DB instance in private subnets.
-B. Configure a VPC with two private subnets and two NAT gateways across two Availability Zones. Deploy an Application Load Balancer in the private subnets.
-C. Use an Auto Scaling group to launch the EC2 instances in public subnets across two Availability Zones. Deploy an RDS Multi-AZ DB instance in private subnets.
-D. Configure a VPC with one public subnet, one private subnet, and two NAT gateways across two Availability Zones. Deploy an Application Load Balancer in the public subnet.
 E. Configure a VPC with two public subnets, two private subnets, and two NAT gateways across two Availability Zones. Deploy an Application Load Balancer in the public subnets. 
 
 126.A solutions architect needs to implement a solution to reduce a company's storage costs. All the company's data is in the Amazon S3 Standard storage class. The company must keep all data for at least 25 years. Data from the most recent 2 years must be highly available and immediately retrievable.
@@ -804,7 +804,6 @@ B. Set up an S3 Lifecycle policy to transition objects to S3 Glacier Deep Archiv
 127.A media company is evaluating the possibility of moving its systems to the AWS Cloud. The company needs at least 10 TB of storage with the maximum possible I/O performance for video processing, 300 TB of very durable storage for storing media content, and 900 TB of storage to meet requirements for archival media that is not in use anymore.
 Which set of services should a solutions architect recommend to meet these requirements? 
 A. Amazon EBS for maximum performance, Amazon S3 for durable data storage, and Amazon S3 Glacier for archival storage
-D. Amazon EC2 instance store for maximum performance, Amazon S3 for durable data storage, and Amazon S3 Glacier for archival storage
 
 128.A company wants to run applications in containers in the AWS Cloud. These applications are stateless and can tolerate disruptions within the underlying infrastructure. The company needs a solution that minimizes cost and operational overhead.
 What should a solutions architect do to meet these requirements? 
@@ -831,11 +830,7 @@ A. Amazon CloudFront and Amazon S3
 133.A company runs an Oracle database on premises. As part of the company’s migration to AWS, the company wants to upgrade the database to the most recent available version. The company also wants to set up disaster recovery (DR) for the database. The company needs to minimize the operational overhead for normal operations and DR setup. The company also needs to maintain access to the database's underlying operating system.
 Which solution will meet these requirements? 
 
-    A. Migrate the Oracle database to an Amazon EC2 instance. Set up database replication to a different AWS Region.
-    B. Migrate the Oracle database to Amazon RDS for Oracle. Activate Cross-Region automated backups to replicate the snapshots to another AWS Region.
-    C. Migrate the Oracle database to Amazon RDS Custom for Oracle. Create a read replica for the database in another AWS Region.
-    D. Migrate the Oracle database to Amazon RDS for Oracle. Create a standby database in another Availability Zone.
-
+   C. Migrate the Oracle database to Amazon RDS Custom for Oracle. Create a read replica for the database in another AWS Region.
 
 134.A company wants to move its application to a serverless solution. The serverless solution needs to analyze existing and new data by using SL. The company stores the data in an Amazon S3 bucket. The data requires encryption and must be replicated to a different AWS Region.
 Which solution will meet these requirements with the LEAST operational overhead?
@@ -847,7 +842,7 @@ D. Ask the provider to create a VPC endpoint for the target service. Use AWS Pri
 
 IMP>>>>>>>>136.A company is migrating its on-premises PostgreSQL database to Amazon Aurora PostgreSQL. The on-premises database must remain online and accessible during the migration. The Aurora database must remain synchronized with the on-premises database.
 Which combination of actions must a solutions architect take to meet these requirements? (Choose two.) 
- C. Create an AWS Database Migration Service (AWS DMS) replication server.
+A. Create an ongoing replication task.
 D. Convert the database schema by using the AWS Schema Conversion Tool (AWS SCT). 
 
 137.A company uses AWS Organizations to create dedicated AWS accounts for each business unit to manage each business unit's account independently upon request. The root email recipient missed a notification that was sent to the root user email address of one account. The company wants to ensure that all future notifications are not missed. Future notifications must be limited to account administrators.
