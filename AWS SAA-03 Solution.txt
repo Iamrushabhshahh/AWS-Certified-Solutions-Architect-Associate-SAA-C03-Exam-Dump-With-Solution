@@ -449,9 +449,9 @@ An On-Demand Capacity Reservation is a type of Amazon EC2 reservation that enabl
 48] A company's website uses an Amazon EC2 instance store for its catalog of items. The company wants to make sure that the catalog is highly available and that the catalog is stored in a durable location.
 What should a solutions architect do to meet these requirements?
 
-A. Move the catalog to Amazon ElastiCache for Redis.
+D. Move the catalog to an Amazon Elastic File System (Amazon EFS) file system.
 
-Redis can manage its durability using its AOF persistence which allows logging changes of the catalog data and can be replayed, even in the event of failure. As for the availability, Redis also allows replication, so if one fails, another is still working. Considering this question isn't about sharing file systems between instances and rather a customer wants to access a catalog, option A seems to be more suitable option here.
+EFS is fully managed, durable, highly available, and shared file system. 
 ---------------------------------------------------------------------
 
 49] A company stores call transcript files on a monthly basis. Users access the files randomly within 1 year of the call, but users access the files infrequently after 1 year. The company wants to optimize its solution by giving users the ability to query and retrieve files that are less than 1-year-old as quickly as possible. A delay in retrieving older files is acceptable.
