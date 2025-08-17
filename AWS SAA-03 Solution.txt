@@ -694,8 +694,8 @@ A. Create three NAT gateways, one for each public subnet in each AZ. Create a pr
 
 102.A company wants to migrate an on-premises data center to AWS. The data center hosts an SFTP server that stores its data on an NFS-based file system. The server holds 200 GB of data that needs to be transferred. The server must be hosted on an Amazon EC2 instance that uses an Amazon Elastic File System (Amazon EFS) file system.
 Which combination of steps should a solutions architect take to automate this task? (Choose two.) 
- A. Launch the EC2 instance into the same Availability Zone as the EFS file system.
 B. Install an AWS DataSync agent in the on-premises data center.
+E. Use AWS DataSync to create a suitable location configuration for the on-premises SFTP server.
 
 103.A company has an AWS Glue extract, transform, and load (ETL) job that runs every day at the same time. The job processes XML data that is in an Amazon S3 bucket. New data is added to the S3 bucket every day. A solutions architect notices that AWS Glue is processing all the data during each run.
 What should the solutions architect do to prevent AWS Glue from reprocessing old data? 
