@@ -845,7 +845,7 @@ D. Ask the provider to create a VPC endpoint for the target service. Use AWS Pri
 IMP>>>>>>>>136.A company is migrating its on-premises PostgreSQL database to Amazon Aurora PostgreSQL. The on-premises database must remain online and accessible during the migration. The Aurora database must remain synchronized with the on-premises database.
 Which combination of actions must a solutions architect take to meet these requirements? (Choose two.) 
 A. Create an ongoing replication task.
-D. Convert the database schema by using the AWS Schema Conversion Tool (AWS SCT). 
+C. Create an AWS Database Migration Service (AWS DMS) replication server.
 
 137.A company uses AWS Organizations to create dedicated AWS accounts for each business unit to manage each business unit's account independently upon request. The root email recipient missed a notification that was sent to the root user email address of one account. The company wants to ensure that all future notifications are not missed. Future notifications must be limited to account administrators.
 Which solution will meet these requirements? 
