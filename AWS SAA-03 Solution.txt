@@ -720,8 +720,8 @@ D. Use Amazon API Gateway with Amazon Kinesis Data Analytics.
 
 108.A company has an automobile sales website that stores its listings in a database on Amazon RDS. When an automobile is sold, the listing needs to be removed from the website and the data must be sent to multiple target systems.
 Which design should a solutions architect recommend?
-A. Create an AWS Lambda function triggered when the database on Amazon RDS is updated to send the information to an Amazon Simple
-Queue Service (Amazon SQS) queue for the targets to consume.
+D. Subscribe to an RDS event notification and send an Amazon Simple Notification Service (Amazon SNS) topic fanned out to multiple Amazon
+Simple Queue Service (Amazon SQS) queues. Use AWS Lambda functions to update the targets.
 
 109.A company needs to store data in Amazon S3 and must prevent the data from being changed. The company wants new objects that are uploaded to Amazon S3 to remain unchangeable for a nonspecific amount of time until the company decides to modify the objects. Only specific users in the company's AWS account can have the ability 10 delete the objects.
 What should a solutions architect do to meet these requirements? 
