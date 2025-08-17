@@ -771,7 +771,7 @@ D. Amazon S3
 
 119.A global company is using Amazon API Gateway to design REST APIs for its loyalty club users in the us-east-1 Region and the ap-southeast-2 Region. A solutions architect must design a solution to protect these API Gateway managed REST APIs across multiple accounts from SQL injection and cross-site scripting attacks.
 Which solution will meet these requirements with the LEAST amount of administrative effort? 
-A. Set up AWS WAF in both Regions. Associate Regional web ACLs with an API stage. 
+B. Set up AWS Firewall Manager in both Regions. Centrally configure AWS WAF rules.
 
 120.A company has implemented a self-managed DNS solution on three Amazon EC2 instances behind a Network Load Balancer (NLB) in the us-west-2 Region. Most of the company's users are located in the United States and Europe. The company wants to improve the performance and availability of the solution. The company launches and configures three EC2 instances in the eu-west-1 Region and adds the EC2 instances as targets for a new NLB.
 Which solution can the company use to route traffic to all the EC2 instances? 
