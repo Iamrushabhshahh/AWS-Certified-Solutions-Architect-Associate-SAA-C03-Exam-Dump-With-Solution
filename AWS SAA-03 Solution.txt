@@ -1457,6 +1457,77 @@ B. Deploy the web application to an AWS Elastic Beanstalk environment. Use URL s
 Elastic Beanstalk allows you to perform blue-green deployments, which involve creating a new environment (green) with the updated code, testing it, and then swapping the URLs to direct traffic to the new environment. This enables you to test new features without affecting the production environment.
 ------------------------------------------------------------------------------------------------------------------------
 
+191] A company has an ordering application that stores customer information in Amazon RDS for MySQL. During regular business hours, employees run one-time queries for reporting purposes. Timeouts are occurring during order processing because the reporting queries are taking a long time to run. The company needs to eliminate the timeouts without preventing employees from performing queries.
+
+What should a solutions architect do to meet these requirements? 
+
+A. Create a read replica. Move reporting queries to the read replica.
+
+------------------------------------------------------------------------------------------------------------------------
+192] A hospital wants to create digital copies for its large collection of historical written records. The hospital will continue to add hundreds of new documents each day. The hospital’s data team will scan the documents and will upload the documents to the AWS Cloud.
+
+A solutions architect must implement a solution to analyze the documents, extract the medical information, and store the documents so that an application can run SQL queries on the data. The solution must maximize scalability and operational efficiency.
+
+Which combination of steps should the solutions architect take to meet these requirements? (Choose two.) 
+
+B. Write the document information to an Amazon S3 bucket. Use Amazon Athena to query the data.
+E. Create an AWS Lambda function that runs when new documents are uploaded. Use Amazon Textract to convert the documents to raw text. Use Amazon Comprehend Medical to detect and extract relevant medical information from the text.
+------------------------------------------------------------------------------------------------------------------------
+193] A company is running a batch application on Amazon EC2 instances. The application consists of a backend with multiple Amazon RDS databases. The application is causing a high number of reads on the databases. A solutions architect must reduce the number of database reads while ensuring high availability.
+
+What should the solutions architect do to meet this requirement?
+
+A. Add Amazon RDS read replicas.
+------------------------------------------------------------------------------------------------------------------------
+194] A company needs to run a critical application on AWS. The company needs to use Amazon EC2 for the application’s database. The database must be highly available and must fail over automatically if a disruptive event occurs.
+
+Which solution will meet these requirements?
+
+A. Launch two EC2 instances, each in a different Availability Zone in the same AWS Region. Install the database on both EC2 instances. Configure the EC2 instances as a cluster. Set up database replication.
+------------------------------------------------------------------------------------------------------------------------
+195] A company’s order system sends requests from clients to Amazon EC2 instances. The EC2 instances process the orders and then store the orders in a database on Amazon RDS. Users report that they must reprocess orders when the system fails. The company wants a resilient solution that can process orders automatically if a system outage occurs.
+
+What should a solutions architect do to meet these requirements? 
+
+C. Move the EC2 instances into an Auto Scaling group. Configure the order system to send messages to an Amazon Simple Queue Service (Amazon SQS) queue. Configure the EC2 instances to consume messages from the queue.
+------------------------------------------------------------------------------------------------------------------------
+196] A company runs an application on a large fleet of Amazon EC2 instances. The application reads and writes entries into an Amazon DynamoDB table. The size of the DynamoDB table continuously grows, but the application needs only data from the last 30 days. The company needs a solution that minimizes cost and development effort.
+
+Which solution meets these requirements?
+
+D. Extend the application to add an attribute that has a value of the current timestamp plus 30 days to each new item that is created in the table. Configure DynamoDB to use the attribute as the TTL attribute.
+------------------------------------------------------------------------------------------------------------------------
+197] A company has a Microsoft .NET application that runs on an on-premises Windows Server. The application stores data by using an Oracle Database Standard Edition server. The company is planning a migration to AWS and wants to minimize development changes while moving the application. The AWS application environment should be highly available.
+
+Which combination of actions should the company take to meet these requirements? (Choose two.) 
+
+B. Rehost the application in AWS Elastic Beanstalk with the .NET platform in a Multi-AZ deployment.
+E. Use AWS Database Migration Service (AWS DMS) to migrate from the Oracle database to Oracle on Amazon RDS in a Multi-AZ deployment.
+------------------------------------------------------------------------------------------------------------------------
+198] A company runs a containerized application on a Kubernetes cluster in an on-premises data center. The company is using a MongoDB database for data storage. The company wants to migrate some of these environments to AWS, but no code changes or deployment method changes are possible at this time. The company needs a solution that minimizes operational overhead.
+
+Which solution meets these requirements? 
+
+D. Use Amazon Elastic Kubernetes Service (Amazon EKS) with AWS Fargate for compute and Amazon DocumentDB (with MongoDB compatibility) for data storage.
+------------------------------------------------------------------------------------------------------------------------
+199]  A telemarketing company is designing its customer call center functionality on AWS. The company needs a solution that provides multiple speaker recognition and generates transcript files. The company wants to query the transcript files to analyze the business patterns. The transcript files must be stored for 7 years for auditing purposes.
+
+Which solution will meet these requirements?
+
+B. Use Amazon Transcribe for multiple speaker recognition. Use Amazon Athena for transcript file analysis.
+------------------------------------------------------------------------------------------------------------------------
+200] A company hosts its application on AWS. The company uses Amazon Cognito to manage users. When users log in to the application, the application fetches required data from Amazon DynamoDB by using a REST API that is hosted in Amazon API Gateway. The company wants an AWS managed solution that will control access to the REST API to reduce development efforts.
+
+Which solution will meet these requirements with the LEAST operational overhead?
+
+D. Configure an Amazon Cognito user pool authorizer in API Gateway to allow Amazon Cognito to validate each request.
+------------------------------------------------------------------------------------------------------------------------
+201] A company is developing a marketing communications service that targets mobile app users. The company needs to send confirmation messages with Short Message Service (SMS) to its users. The users must be able to reply to the SMS messages. The company must store the responses for a year for analysis.
+
+What should a solutions architect do to meet these requirements?
+
+B. Build an Amazon Pinpoint journey. Configure Amazon Pinpoint to send events to an Amazon Kinesis data stream for analysis and archiving.
+------------------------------------------------------------------------------------------------------------------------
 201] A company is developing a marketing communications service that targets mobile app users. The company needs to send its users confirmation messages with Short Message Service (SMS). The users must be able to reply to the SMS messages. The company must store the responses for a year for analysis.
 
 What should a solutions architect do to meet these requirements?
@@ -1646,6 +1717,8 @@ E. Update the network ACL to allow inbound TCP port 443 from source 0.0.0.0/0 an
 219] A company’s application is having performance issues. The application is stateful and needs to complete in-memory tasks on Amazon EC2 instances. The company used AWS CloudFormation to deploy infrastructure and used the M5 EC2 instance family. As traffic increased, the application performance degraded. Users are reporting delays when the users attempt to access the application.
 
 Which solution will resolve these issues in the MOST operationally efficient way?
+
+D. Modify the CloudFormation templates. Replace the EC2 instances with R5 EC2 instances. Deploy the Amazon CloudWatch agent on the EC2 instances to generate custom application latency metrics for future capacity planning.
 ------------------------------------------------------------------------------------------------------------------------
 
 220] A solutions architect is designing a new API using Amazon API Gateway that will receive requests from users. The volume of requests is highly variable; several hours can pass without receiving a single request. The data processing will take place asynchronously, but should be completed within a few seconds after a request is made.
@@ -2633,6 +2706,7 @@ CloudFront Signed URLs: CloudFront provides the ability to generate signed URLs,
 
 Which solution meets these requirements?
 
+C. Create a single Amazon Simple Notification Service (Amazon SNS) topic. Subscribe Amazon Simple Queue Service (Amazon SQS) queues to the SNS topic. Configure SNS message filtering to publish messages to the proper SQS queue based on the quote type. Configure each backend application server to use its own SQS queue.
 ------------------------------------------------------------------------------------------------------------------------
 
 312] A company has an application that runs on several Amazon EC2 instances. Each EC2 instance has multiple Amazon Elastic Block Store (Amazon EBS) data volumes attached to it. The application’s EC2 instance configuration and data need to be backed up nightly. The application also needs to be recoverable in a different AWS Region.
@@ -3472,7 +3546,8 @@ The company wants to optimize customer session management during transactions. T
 
 Which solutions will meet these requirements? (Choose two.)
 
-
+A. Turn on the sticky sessions feature (session affinity) on the ALB.
+D. Deploy an Amazon ElastiCache for Redis cluster to store customer session information.
 ------------------------------------------------------------------------------------------------------------------------
 
 391] A company needs a backup strategy for its three-tier stateless web application. The web application runs on Amazon EC2 instances in an Auto Scaling group with a dynamic scaling policy that is configured to respond to scaling events. The database tier runs on Amazon RDS for PostgreSQL. The web application does not require temporary local storage on the EC2 instances. The company’s recovery point objective (RPO) is 2 hours.
@@ -3721,6 +3796,8 @@ Amazon Simple Email Service (Amazon SES) is a fully managed email sending servic
 414] A company has a business system that generates hundreds of reports each day. The business system saves the reports to a network share in CSV format. The company needs to store this data in the AWS Cloud in near-real time for analysis.
 
 Which solution will meet these requirements with the LEAST administrative overhead?
+
+B. Create an Amazon S3 File Gateway. Update the business system to use a new network share from the S3 File Gateway.
 ------------------------------------------------------------------------------------------------------------------------
 
 415] A company is storing petabytes of data in Amazon S3 Standard. The data is stored in multiple S3 buckets and is accessed with varying frequency. The company does not know access patterns for all the data. The company needs to implement a solution for each S3 bucket to optimize the cost of S3 usage.
@@ -3751,6 +3828,8 @@ Creating a read replica for the Amazon RDS database allows you to offload read t
 The application will run for at least 1 year. The company expects the number of Lambda functions that the application uses to increase during that time. The company wants to maximize its savings on all application resources and to keep network latency between the services low.
 
 Which solution will meet these requirements?
+
+C. Purchase a Compute Savings Plan. Optimize the Lambda functions’ duration and memory usage, the number of invocations, and the amount of data that is transferred. Connect the Lambda functions to the private subnet that contains the EC2 instances.
 ------------------------------------------------------------------------------------------------------------------------
 
 418] A solutions architect needs to allow team members to access Amazon S3 buckets in two different AWS accounts: a development account and a production account. The team currently has access to S3 buckets in the development account by using unique IAM users that are assigned to an IAM group that has appropriate permissions in the account.
@@ -3869,8 +3948,11 @@ B. Create an IAM role that includes Lambda as a trusted service. Attach a policy
 IAM Role with Lambda as a Trusted Service: This approach follows the principle of least privilege. You create an IAM role that specifically grants the required permissions to access DynamoDB and makes Lambda a trusted service. This ensures that only Lambda functions associated with this role can assume it.
 ------------------------------------------------------------------------------------------------------------------------
 
-429] Json format
+429] picture of an IAM policy (abbrv. ec2:*, StringEqvuals:us-east-1, e2:StopInstances, e2:TerminateInstances, BoolIfExists:aws:MultiFactorAuthPresent:false)
 
+What are the effective IAM permissions of this policy for group members? 
+
+D. Group members are allowed the ec2:StopInstances and ec2:TerminateInstances permissions for the us-east-1 Region only when logged in with multi-factor authentication (MFA). Group members are permitted any other Amazon EC2 action within the us-east-1 Region.
 ------------------------------------------------------------------------------------------------------------------------
 
 430] A manufacturing company has machine sensors that upload .csv files to an Amazon S3 bucket. These .csv files must be converted into images and must be made available as soon as possible for the automatic generation of graphical reports.
@@ -4479,15 +4561,14 @@ Amazon SQS provides message retention settings, and in this case, you can set th
 Which solution meets these requirements?
 
 B. Export the data directly from DynamoDB to Amazon S3 with continuous backups. Turn on point-in-time recovery for the table.
-
 ------------------------------------------------------------------------------------------------------------------------
 
 491] A solutions architect is designing an asynchronous application to process credit card data validation requests for a bank. The application must be secure and be able to process each request at least once.
 
 Which solution will meet these requirements MOST cost-effectively?
 
+A. Use AWS Lambda event source mapping. Set Amazon Simple Queue Service (Amazon SQS) standard queues as the event source. Use AWS Key Management Service (SSE-KMS) for encryption. Add the kms:Decrypt permission for the Lambda execution role.
 ------------------------------------------------------------------------------------------------------------------------
-
 
 492] A company has multiple AWS accounts for development work. Some staff consistently use oversized Amazon EC2 instances, which causes the company to exceed the yearly budget for the development accounts. The company wants to centrally restrict the creation of AWS resources in these accounts.
 
@@ -5045,6 +5126,9 @@ This solution involves generating signed URLs for the content, which allows acce
 543] A company runs Amazon EC2 instances in multiple AWS accounts that are individually bled. The company recently purchased a Savings Pian. Because of changes in the company’s business requirements, the company has decommissioned a large number of EC2 instances. The company wants to use its Savings Plan discounts on its other AWS accounts.
 
 Which combination of steps will meet these requirements? (Choose two.)
+
+A. From the AWS Account Management Console of the management account, turn on discount sharing from the billing preferences section.
+D. Create an organization in AWS Organizations in a new payer account. Invite the other AWS accounts to join the organization from the management account.
 
 ------------------------------------------------------------------------------------------------------------------------
 
