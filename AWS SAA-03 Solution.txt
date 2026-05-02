@@ -293,13 +293,20 @@ Yes, you can use AWS Config to create tags for your resources. AWS Config is a s
 -------------------------------------------------------------------------------------------------------------------------
 
 32] A development team needs to host a website that will be accessed by other teams. The website contents consist of HTML, CSS, client-side JavaScript, and images.
+
 Which method is the MOST cost-effective for hosting the website?
 
 B. Create an Amazon S3 bucket and host the website there.
 
-The MOST cost-effective method for hosting a website is to:
-Create an Amazon S3 bucket and host the website there.
-Amazon S3 is a highly scalable and cost-effective object storage service. It is a good option for hosting static websites, such as the website in this scenario.C is the best solution for the following reasons:
+Explanation:
+The website is a static website because it consists only of HTML, CSS, client-side JavaScript, and images. The most cost-effective method is to create an Amazon S3 bucket and host the website there.
+
+Amazon S3 is a highly scalable and cost-effective object storage service. It is suitable for hosting static websites because no web servers, containers, or backend compute resources are required.
+
+To host the website on Amazon S3, the development team would create an S3 bucket, upload the website files to the bucket, and configure the bucket for static website hosting.
+
+Option A is incorrect because AWS Fargate is used to run containers and is unnecessary for a static website. Option C is incorrect because an EC2 web server would add compute cost and operational overhead. Option D is incorrect because using an Application Load Balancer with Lambda and Express.js is overly complex for static content.
+
 ---------------------------------------------------------------------------------------------------------------------------------------
 33] A company runs an online marketplace web application on AWS. The application serves hundreds of thousands of users during peak hours. The company needs a scalable, near-real-time solution to share the details of millions of financial transactions with several other internal applications. Transactions also need to be processed to remove sensitive data before being stored in a document database for low-latency retrieval.
 What should a solutions architect recommend to meet these requirements?
@@ -310,7 +317,7 @@ C. Stream the transactions data into Amazon Kinesis Data Streams. Use AWS Lambda
 
 2. Data Transformation: You can cleanse and eliminate sensitive data from transactions before storing them in Amazon DynamoDB by utilizing AWS Lambda with Kinesis Data Streams. This takes care of the requirement to handle sensitive data with care.
 3. Scalability: DynamoDB and Amazon Kinesis are both extremely scalable technologies that can manage enormous data volumes and adjust to the workload.
-To host a static website on Amazon S3, you would first need to create an S3 bucket. Then, you would need to upload the website files to the bucket. Once the files are uploaded, you can configure the bucket to serve as a website.
+
 -------------------------------------------------------------------------------------------------------------------------
 
 34] A company hosts its multi-tier applications on AWS. For compliance, governance, auditing, and security, the company must track configuration changes on its AWS resources and record a history of API calls made to these resources.
