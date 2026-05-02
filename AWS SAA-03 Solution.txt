@@ -254,10 +254,15 @@ Share a single dashboard and designate specific email addresses of the people wh
 -------------------------------------------------------------------------------------------------
 
 28] A company is migrating applications to AWS. The applications are deployed in different accounts. The company manages the accounts centrally by using AWS Organizations. The company's security team needs a single sign-on (SSO) solution across all the company's accounts. The company must continue managing the users and groups in its on-premises self-managed Microsoft Active Directory.
+
 Which solution will meet these requirements?
 
-A. Enable AWS Single Sign-On (AWS SSO) from the AWS SSO console. Create a one-way forest trust or a one-way domain trust to connect the company's self-managed Microsoft Active Directory with AWS SSO by using AWS Directory Service for Microsoft Active Directory.
-****************************************************************************
+B. Enable AWS Single Sign-On (AWS SSO) from the AWS SSO console. Create a two-way forest trust to connect the company's self-managed Microsoft Active Directory with AWS SSO by using AWS Directory Service for Microsoft Active Directory.
+
+Explanation:
+AWS Single Sign-On (AWS SSO), now called AWS IAM Identity Center, provides centralized SSO access across multiple AWS accounts in AWS Organizations. To continue managing users and groups in the company's on-premises self-managed Microsoft Active Directory, the company can connect the directory to AWS Managed Microsoft AD by using a two-way forest trust. The two-way trust is required so IAM Identity Center can authenticate users and read users and groups from the self-managed Active Directory.
+
+Option A is incorrect because a one-way trust is not enough for IAM Identity Center in this scenario. Option C is incomplete because it creates the trust but does not configure AWS SSO/IAM Identity Center for SSO across accounts. Option D adds unnecessary operational overhead by deploying a separate on-premises identity provider.
 
 ------------------------------------------------------------------------------------------------
 
