@@ -838,6 +838,8 @@ B. Set up an S3 Lifecycle policy to transition objects to S3 Glacier Deep Archiv
 Which set of services should a solutions architect recommend to meet these requirements? 
 D. Amazon EC2 instance store for maximum performance, Amazon S3 for durable data storage, and Amazon S3 Glacier for archival storage
 
+Note: this one is genuinely disputed in the community and I could not find a fully authoritative answer key. The case for D (instance store): local NVMe instance store bypasses the network and can outperform EBS, matching "maximum possible" I/O. The case for A (Amazon EBS instead of instance store): instance store is ephemeral (data lost on stop/terminate), which may conflict with the durability expectations implied elsewhere in the question, and EBS io2 Block Express also offers very high IOPS. Treat this answer with lower confidence than the others in this file.
+
 128.A company wants to run applications in containers in the AWS Cloud. These applications are stateless and can tolerate disruptions within the underlying infrastructure. The company needs a solution that minimizes cost and operational overhead.
 What should a solutions architect do to meet these requirements? 
 B. Use Spot Instances in an Amazon Elastic Kubernetes Service (Amazon EKS) managed node group. 
