@@ -1062,12 +1062,11 @@ What should the solutions architect do to accomplish this?
 B. Design a REST API using Amazon API Gateway that accepts the item names. API Gateway passes item names to AWS Lambda for tax computations.
 
 IMP>>>>>>172.A solutions architect is creating a new Amazon CloudFront distribution for an application. Some of the information submitted by users is sensitive. The application uses HTTPS but needs another layer of security. The sensitive information should.be protected throughout the entire application stack, and access to the information should be restricted to certain applications.
-Which action should the solutions architect take? 
+Which action should the solutions architect take?
 
-    A. Configure a CloudFront signed URL.
-    B. Configure a CloudFront signed cookie.
-    C. Configure a CloudFront field-level encryption profile.
-    D. Configure CloudFront and set the Origin Protocol Policy setting to HTTPS Only for the Viewer Protocol Policy.
+C. Configure a CloudFront field-level encryption profile.
+
+Explanation: Field-level encryption keeps specific sensitive fields encrypted with a public key all the way from the viewer through to the origin and any backend systems, so only applications holding the matching private key can decrypt them. Signed URLs/cookies (A, B) only restrict access to content, and HTTPS-only origin policy (D) protects data in transit but not throughout the whole application stack.
 
 173.A gaming company hosts a browser-based application on AWS. The users of the application consume a large number of videos and images that are stored in Amazon S3. This content is the same for all users.
 The application has increased in popularity, and millions of users worldwide accessing these media files. The company wants to provide the files to the users while reducing the load on the origin.
