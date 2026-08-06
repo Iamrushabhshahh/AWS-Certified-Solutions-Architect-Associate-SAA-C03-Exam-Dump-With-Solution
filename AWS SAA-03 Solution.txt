@@ -623,8 +623,10 @@ Which design should the solutions architect use?
 C. Create an Amazon SQS queue to hold the jobs that need to be processed. Create an Amazon Machine Image (AMI) that consists of the processor application. Create a launch template that uses the AMI. Create an Auto Scaling group using the launch template. Set the scaling policy for the Auto Scaling group to add and remove nodes based on the number of items in the SQS queue. 
 
 82.A company hosts its web applications in the AWS Cloud. The company configures Elastic Load Balancers to use certificates that are imported into AWS Certificate Manager (ACM). The company's security team must be notified 30 days before the expiration of each certificate.
-What should a solutions architect recommend to meet this requirement? 
-D. Create an Amazon EventBridge (Amazon CloudWatch Events) rule to detect any certificates that will expire within 30 days. Configure the rule to invoke an AWS Lambda function. Configure the Lambda function to send a custom alert by way of Amazon Simple Notification Service (Amazon SNS). 
+What should a solutions architect recommend to meet this requirement?
+B. Create an AWS Config rule to use the managed rule acm-certificate-expiration-check to check certificates a specific number of days before expiration. Set up an Amazon EventBridge (Amazon CloudWatch Events) rule for the AWS Config noncompliance event. Configure the rule to invoke an Amazon Simple Notification Service (Amazon SNS) topic to notify the security team.
+
+Explanation: AWS Config ships a managed rule specifically for this, acm-certificate-expiration-check, which flags certificates nearing expiration. Wiring that up through EventBridge to SNS meets the requirement without writing custom detection logic in a Lambda function.
 
 83.A company's dynamic website is hosted using on-premises servers in the United States. The company is launching its product in Europe, and it wants to optimize site loading times for new European users. The site's backend must remain in the United States. The product is being launched in a few days, and an immediate solution is needed.
 What should the solutions architect recommend? 
@@ -741,7 +743,7 @@ Which design should a solutions architect recommend?
 D. Subscribe to an RDS event notification and send an Amazon Simple Notification Service (Amazon SNS) topic fanned out to multiple Amazon
 Simple Queue Service (Amazon SQS) queues. Use AWS Lambda functions to update the targets.
 
-109.A company needs to store data in Amazon S3 and must prevent the data from being changed. The company wants new objects that are uploaded to Amazon S3 to remain unchangeable for a nonspecific amount of time until the company decides to modify the objects. Only specific users in the company's AWS account can have the ability 10 delete the objects.
+109.A company needs to store data in Amazon S3 and must prevent the data from being changed. The company wants new objects that are uploaded to Amazon S3 to remain unchangeable for a nonspecific amount of time until the company decides to modify the objects. Only specific users in the company's AWS account can have the ability to delete the objects.
 What should a solutions architect do to meet these requirements? 
 D. Create an S3 bucket with S3 Object Lock enabled. Enable versioning. Add a legal hold to the objects. Add the s3:PutObjectLegalHold permission to the IAM policies of users who need to delete the objects. 
 
