@@ -780,8 +780,10 @@ A. Configure Amazon CloudFront in front of the website to use HTTPS functionalit
 D. Create the new website and an Amazon S3 bucket. Deploy the website on the S3 bucket with static website hosting enabled.
 
 117.A company stores its application logs in an Amazon CloudWatch Logs log group. A new policy requires the company to store all application logs in Amazon OpenSearch Service (Amazon Elasticsearch Service) in near-real time.
-Which solution will meet this requirement with the LEAST operational overhead? 
-C. Create an Amazon Kinesis Data Firehose delivery stream. Configure the log group as the delivery streams sources. Configure Amazon OpenSearch Service (Amazon Elasticsearch Service) as the delivery stream's destination. 
+Which solution will meet this requirement with the LEAST operational overhead?
+A. Configure a CloudWatch Logs subscription filter to stream the log group directly to Amazon OpenSearch Service (Amazon Elasticsearch Service).
+
+Explanation: CloudWatch Logs supports a native subscription filter that streams straight to OpenSearch Service, so routing through Kinesis Data Firehose is an unnecessary extra hop for this requirement.
 
 118.A company is building a web-based application running on Amazon EC2 instances in multiple Availability Zones. The web application will provide access to a repository of text documents totaling about 900 TB in size. The company anticipates that the web application will experience periods of high demand. A solutions architect must ensure that the storage component for the text documents can scale to meet the demand of the application at all times. The company is concerned about the overall cost of the solution.
 Which storage solution meets these requirements MOST cost-effectively? 
@@ -920,8 +922,10 @@ What is the MOST cost-effective solution?
 B. Migrate the monthly reporting to an Aurora Replica. 
 
 145.A company hosts a website analytics application on a single Amazon EC2 On-Demand Instance. The analytics software is written in PHP and uses a MySQL database. The analytics software, the web server that provides PHP, and the database server are all hosted on the EC2 instance. The application is showing signs of performance degradation during busy times and is presenting 5xx errors. The company needs to make the application scale seamlessly.
-Which solution will meet these requirements MOST cost-effectively? 
-D. Migrate the database to an Amazon Aurora MySQL DB instance. Create an AMI of the web application. Apply the AMI to a launch template. Create an Auto Scaling group with the launch template Configure the launch template to use a Spot Fleet. Attach an Application Load Balancer to the Auto Scaling group.
+Which solution will meet these requirements MOST cost-effectively?
+A. Migrate the database to an Amazon RDS for MySQL DB instance. Create an AMI of the web application. Apply the AMI to a launch template. Create an Auto Scaling group with the launch template. Attach an Application Load Balancer to the Auto Scaling group.
+
+Explanation: Aurora costs more than a standard RDS for MySQL instance, which is unnecessary here since the requirement is cost-effective seamless scaling, not Aurora's extra performance headroom. A Spot Fleet is also a poor fit for a production website that needs reliable, seamless scaling, since Spot Instances can be interrupted at any time — On-Demand instances in the Auto Scaling group are the safer, still-affordable choice.
 
 146.A company runs a stateless web application in production on a group of Amazon EC2 On-Demand Instances behind an Application Load Balancer. The application experiences heavy usage during an 8-hour period each business day. Application usage is moderate and steady overnight. Application usage is low during weekends.
 The company wants to minimize its EC2 costs without affecting the availability of the application.
@@ -1594,9 +1598,9 @@ AWS Budgets is a cost management service that allows you to set custom cost and 
 
 Which solution will deploy the function in the MOST operationally efficient way?
 
-A. Create an Amazon API Gateway REST API. Configure the method to use the Lambda function. Enable IAM authentication on the API.
+B. Create a Lambda function URL for the function. Specify AWS_IAM as the authentication type.
 
-This option is specifically designed for creating APIs and provides features such as authentication, request validation, and more. It allows you to create a REST API, configure a method to invoke the Lambda function, and enable IAM authentication. This provides a dedicated and managed API endpoint for clients to call securely.
+Explanation: A Lambda function URL gives the function its own HTTPS endpoint directly, with no separate API Gateway resource to create or manage. Setting the auth type to AWS_IAM satisfies the IAM-authentication requirement, making this the more operationally efficient option compared to fronting the function with a full API Gateway REST API.
 ------------------------------------------------------------------------------------
 
 240] A company previously migrated its data warehouse solution to AWS. The company also has an AWS Direct Connect connection. Corporate office users query the data warehouse using a visualization tool. The average size of a query returned by the data warehouse is 50 MB and each webpage sent by the visualization tool is approximately 500 KB. Result sets returned by the data warehouse are not cached.
@@ -2378,10 +2382,11 @@ Which solution meets these requirements?
 
 Which solution will meet these requirements in the MOST operationally efficient way?
 
-C. Create a backup plan by using AWS Backup to perform nightly backups. Copy the backups to another Region. Add the application’s EBS volumes as resources.
+B. Create a backup plan by using AWS Backup to perform nightly backups. Copy the backups to another Region. Add the application’s EC2 instances as resources.
 
 AWS Backup: AWS Backup is a fully managed backup service that centralizes and automates the backup of data across AWS services. It provides a simple and efficient way to back up your EC2 instances and their associated EBS volumes.
 Backup Plan: With AWS Backup, you can create backup plans to define when and how your backups are performed. Backup plans allow you to schedule nightly backups and define retention policies.
+Explanation: Adding only the EBS volumes as resources backs up the data but not the instance configuration, so recovery would mean manually rebuilding the EC2 instance and reattaching volumes. Adding the EC2 instances themselves as resources backs up the instance and its attached volumes together, in one operationally simpler recovery step.
 ----------------------------------------------------------------------------------------
 
 313] A company is building a mobile app on AWS. The company wants to expand its reach to millions of users. The company needs to build a platform so that authorized users can watch the company’s content on their mobile devices.
@@ -2497,7 +2502,9 @@ The company wants to ensure that end users retain immediate access to all file t
 
 Which solution will meet these requirements with the LEAST amount of change to the company's existing infrastructure?
 
-C. Provision an AWS Storage Gateway Volume Gateway cached volume. Set the local cache to 10 TB. Mount the Volume Gateway cached volume to the existing file server by using iSCSI, and copy all files to the storage volume. Configure scheduled snapshots of the storage volume. To recover from a disaster, restore a snapshot to an Amazon Elastic Block Store (Amazon EBS) volume and attach the EBS volume to an Amazon EC2 instance.
+D. Provision an AWS Storage Gateway Volume Gateway stored volume sized to hold all the existing data. Mount the Volume Gateway stored volume to the existing file server by using iSCSI, and copy all files to the storage volume. Configure scheduled snapshots of the storage volume. To recover from a disaster, restore a snapshot to an Amazon Elastic Block Store (Amazon EBS) volume and attach the EBS volume to an Amazon EC2 instance.
+
+Explanation: A cached volume only keeps the most frequently accessed data locally — anything not in cache has to be fetched from S3 first, adding latency, so it fails the "immediate access to all file types" requirement. A stored volume keeps the entire dataset on-premises (with async backup to S3), giving true zero-latency access to every file.
 
 ------------------------------------------------------------------------------------------
 
@@ -3015,9 +3022,9 @@ When a natural disaster occurs, tens of thousands of images get updated every fe
 
 Which solution meets these requirements MOST cost-effectively?
 
-D. Store the images in Amazon S3 buckets. Store geographic codes and image S3 URLs in a database table. Use Oracle running on an Amazon RDS Multi-AZ DB instance.
+B. Store the images in Amazon S3 buckets. Store geographic codes and image S3 URLs in an Amazon DynamoDB table.
 
-In this we cannot used DynamoDB database bcz it is a NOSQL database and we want a SQL  database bcz oracle database is SQL DATABASE thats why the correct ans is D. bcz used S3 bucket for storing data and used Oracle database for SQL we used Amazon RDS.
+Explanation: Each geographic code maps to a single image/row — a simple key-value access pattern — and updates arrive in spiky bursts during disasters. DynamoDB is built for exactly that: high, unpredictable write throughput with simple key lookups, scaling more cost-effectively than a relational Oracle-on-RDS table for this access pattern.
 
 --------------------------------------------------------------------------------------------------
 
@@ -3364,11 +3371,11 @@ Introducing Amazon SQS as a queue allows for better decoupling between the S3 ev
 
 Which combination of actions should the solutions architect take to ensure that the system can scale to meet demand? (Choose two.)
 
-A. Use AWS Auto Scaling to adjust the ALB capacity based on request rate.
+D. Configure a target tracking policy that adjusts the number of EC2 instances in the Auto Scaling group based on demand.
 
 E. Use scheduled scaling to change the Auto Scaling group minimum, maximum, and desired capacity to zero for weekends. Revert to the default values at the start of the week.
 
-This allows the ALB to automatically scale its capacity based on the incoming request rate, ensuring that the system can handle varying traffic loads.
+Explanation: An Application Load Balancer scales its own capacity automatically — you don't (and can't) attach an Auto Scaling policy to the ALB itself, so the old option A isn't a real configuration. The EC2 Auto Scaling group behind it is what needs a scaling policy (D), alongside scheduled scaling (E) to scale to zero on weekends.
 
 This allows you to save costs and resources during weekends when the system is not required to operate. Scaling down the Auto Scaling group to zero instances during weekends and reverting to the default values at the start of the week ensures that you only incur costs when the system is actively in use.
 ---------------------------------------------------------------------------------------------
@@ -3518,9 +3525,11 @@ An audit discovers that employees have created Amazon Elastic Block Store (Amazo
 
 Which combination of steps will meet these requirements? (Choose two.)
 
+A. In each AWS account that contains EC2 instances in ap-southeast-2, specify the Default EBS volume encryption setting.
+
 C. Create an SCP. Attach the SCP to the root organizational unit (OU). Define the SCP to deny the ec2:CreateVolume action whenthe ec2:Encrypted condition equals false.
 
-E. In the Organizations management account, specify the Default EBS volume encryption setting.
+Explanation: "Default EBS encryption" is a per-account, per-Region setting — it cannot be configured centrally from the Organizations management account (ruling out the old option E). It has to be set in each member account instead, paired with the SCP (C) as a guardrail that blocks anyone who creates a volume without encryption regardless.
 ---------------------------------------------------------------------------------------
 
 420] A company wants to use an Amazon RDS for PostgreSQL DB cluster to simplify time-consuming database administrative tasks for production database workloads. The company wants to ensure that its database is highly available and will provide automatic failover support in most scenarios in less than 40 seconds. The company wants to offload reads off of the primary instance and keep costs as low as possible.
@@ -3588,7 +3597,9 @@ The company hosts the application on an on-premises infrastructure that is runni
 
 Which solution will meet these requirements?
 
-D. Use AWS Storage Gateway to move the existing data to Amazon S3. Use AWS CloudTrail to log management events.
+A. Use AWS Storage Gateway to move the existing data to Amazon S3. Use AWS CloudTrail to log data events for the S3 bucket.
+
+Explanation: CloudTrail management events don't capture object-level (data) access, so they can't satisfy "audit access at all levels of the stored data." CloudTrail data events, which log individual object-level API activity on the S3 bucket, are needed instead.
 -------------------------------------------------------------------------------
 
 427] A solutions architect is implementing a complex Java application with a MySQL database. The Java application must be deployed on Apache Tomcat and must be highly available.
@@ -4436,11 +4447,9 @@ In this case, a VPC peering connection is set up between the VPC in ap-southeast
 
 Which solution will meet these requirements MOST cost-effectively?
 
-C. Configure each development environment with its own Amazon Aurora On-Demand PostgreSQL-Compatible database
+B. Configure each development environment with its own Amazon RDS for PostgreSQL database. Stop the RDS instance outside of the 8-hour workday.
 
-Amazon Aurora is designed for high-performance, scalability, and availability.
-It offers features such as automatic failover, replication, and performance enhancements over traditional PostgreSQL.
-On-Demand pricing means you pay for the resources you consume, making it a flexible option.
+Explanation: Since each environment is only used for half of the workday, a standard RDS for PostgreSQL instance that gets stopped when not in use is cheaper than running Aurora continuously — Aurora costs more than standard RDS and this workload doesn't need Aurora's extra performance/availability features.
 --------------------------------------------------------------------------
 
 512] A company uses AWS Organizations with resources tagged by account. The company also uses AWS Backup to back up its AWS infrastructure resources. The company needs to back up all AWS resources.
