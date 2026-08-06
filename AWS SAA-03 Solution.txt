@@ -793,7 +793,20 @@ B. Set up AWS Firewall Manager in both Regions. Centrally configure AWS WAF rule
 
 120.A company has implemented a self-managed DNS solution on three Amazon EC2 instances behind a Network Load Balancer (NLB) in the us-west-2 Region. Most of the company's users are located in the United States and Europe. The company wants to improve the performance and availability of the solution. The company launches and configures three EC2 instances in the eu-west-1 Region and adds the EC2 instances as targets for a new NLB.
 Which solution can the company use to route traffic to all the EC2 instances? 
-A. Create an Amazon Route 53 geolocation routing policy to route requests to one of the two NLBs. Create an Amazon CloudFront distribution. Use the Route 53 record as the distribution’s origin. 
+---------------------------------------
+
+Correct answer is :
+B. Create a standard accelerator in AWS Global Accelerator. Create endpoint groups in us-west-2 and eu-west-1. Add the two NLBs as
+endpoints for the endpoint groups.
+
+Explanation: 
+| Option | Why eliminated                      |
+| ------ | ----------------------------------- |
+| A      | CloudFront doesn’t support DNS      |
+| B      | ✅ Correct — TCP/UDP, global, HA     |
+| C      | Fragile, wrong protocol, CloudFront |
+| D      | ALB + CloudFront breaks DNS         |
+
 
 121.A company is running an online transaction processing (OLTP) workload on AWS. This workload uses an unencrypted Amazon RDS DB instance in a Multi-AZ deployment. Daily database snapshots are taken from this instance.
 What should a solutions architect do to ensure the database and snapshots are always encrypted moving forward? 
@@ -963,11 +976,14 @@ C. Create custom AWS Lambda functions to move the individual records from the da
 IMP>>>>>157.A company stores data in an Amazon Aurora PostgreSQL DB cluster. The company must store all the data for 5 years and must delete all the data after 5 years. The company also must indefinitely keep audit logs of actions that are performed within the database. Currently, the company has automated backups configured for Aurora.
 
 Which combination of steps should a solutions architect take to meet these requirements? (Choose two.) 
- A. Take a manual snapshot of the DB cluster.
-B. Create a lifecycle policy for the automated backups.
-C. Configure automated backup retention for 5 years.
-D. Configure an Amazon CloudWatch Logs export for the DB cluster.
-E. Use AWS Backup to take the backups and to keep the backups for 5 years.
+A. Take a manual snapshot of the DB cluster.--- No since automation asked
+B. Create a lifecycle policy for the automated backups.--- Lifecycle policy there for S3
+C. Configure automated backup retention for 5 years. -- Not possible
+D. Configure an Amazon CloudWatch Logs export for the DB cluster. -- Correct
+E. Use AWS Backup to take the backups and to keep the backups for 5 years.-- Correct
+
+D and E
+
 
 IMP>>>>>158.A solutions architect is optimizing a website for an upcoming musical event. Videos of the performances will be streamed in real time and then will be available on demand. The event is expected to attract a global online audience.
 
